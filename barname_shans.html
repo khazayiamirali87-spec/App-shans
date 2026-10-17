@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070d24">
+<title>برنامه شانس</title>
+<style>
+:root{--bg:#050a1c;--panel:#0b1735;--line:#183d78;--text:#f5f7ff;--muted:#a8b7dc;--blue:#087cff;--purple:#8b22ff;--gold:#ffbd17;--green:#00c98d}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#14245a 0,#070d24 43%,#030715 100%);color:var(--text);font-family:Tahoma,"Arial",sans-serif;min-height:100vh}
+button,input{font:inherit}button{cursor:pointer;border:0;color:white;font-weight:700;touch-action:manipulation}
+.app{max-width:540px;margin:auto;padding:18px 15px 90px}
+.top{display:flex;align-items:center;justify-content:space-between;margin:5px 2px 20px}.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(145deg,#ffdb57,#ff8a00);display:grid;place-items:center;font-size:28px;box-shadow:0 6px 24px #ffae3340}.brand h1{font-size:22px;margin:0 0 4px}.brand p{margin:0;color:var(--muted);font-size:12px}.iconbtn{background:#10234a;border:1px solid #21447d;border-radius:13px;width:44px;height:44px;font-size:20px}
+.hero{border:1px solid #20417a;background:linear-gradient(135deg,#101c43d9,#11133cdd);border-radius:24px;padding:18px;margin-bottom:17px;overflow:hidden;position:relative}.hero:after{content:"✦";position:absolute;left:20px;top:15px;color:#ffd04b;font-size:26px;opacity:.7}.eyebrow{color:#7cc6ff;font-size:12px;font-weight:bold}.hero h2{font-size:24px;margin:10px 0}.hero p{color:#c0cbea;line-height:1.8;font-size:13px;margin:0}.sectiontitle{display:flex;align-items:center;justify-content:space-between;margin:22px 3px 12px}.sectiontitle h3{margin:0;font-size:17px}.sectiontitle span{color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.tile{min-height:112px;text-align:right;padding:15px;border-radius:20px;background:linear-gradient(145deg,#10244a,#0a1531);border:1px solid #1b4076;display:flex;flex-direction:column;justify-content:space-between;transition:transform .15s}.tile:active{transform:scale(.98)}.tile .emoji{font-size:30px}.tile b{font-size:15px}.tile small{color:#a8b8df;font-size:11px;margin-top:5px}.tile.wheel{border-color:#9a5b14;background:linear-gradient(140deg,#42230e,#161633)}.tile.coin{border-color:#1665a9}.tile.dice{border-color:#6331a5}.tile.raffle{border-color:#a24e13}
+.panel{background:#09152e;border:1px solid #1a3b70;border-radius:23px;padding:16px;margin-top:14px}.screen{display:none}.screen.active{display:block}.back{background:transparent;color:#b8c8ef;padding:6px 0 12px;font-size:14px}.screen h2{margin:5px 0 14px;font-size:21px}.sub{color:var(--muted);font-size:12px;line-height:1.8}
+.wheelbox{position:relative;width:min(82vw,330px);height:min(82vw,330px);margin:12px auto 20px}.wheelcanvas{width:100%;height:100%;filter:drop-shadow(0 9px 14px #0008)}.pointer{position:absolute;top:-5px;left:50%;transform:translateX(-50%);z-index:2;width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-top:35px solid #fff1a2;filter:drop-shadow(0 3px 4px #000)}.primary{width:100%;padding:15px 18px;border-radius:17px;background:linear-gradient(100deg,#087dff,#7c18f5);box-shadow:0 8px 22px #3a23d533}.secondary{background:#10254b;border:1px solid #2b508c;border-radius:13px;padding:11px 13px}.row{display:flex;gap:8px;align-items:center}.row>*{min-width:0}.input{width:100%;background:#061027;color:white;border:1px solid #24487e;border-radius:12px;padding:13px;outline:none}.input:focus{border-color:#3ca5ff}.list{display:grid;gap:8px;margin-top:12px}.item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#0d2042;border:1px solid #1d3c6d;padding:10px 12px;border-radius:12px;font-size:13px}.del{background:#351b35;color:#ffb4c4;border-radius:9px;padding:7px 10px}.result{margin:14px 0;padding:18px;border-radius:17px;text-align:center;background:linear-gradient(130deg,#102b59,#20154d);border:1px solid #3c4d9a}.result .big{font-size:40px;margin:4px}.result p{margin:4px;color:#c3d1f0;font-size:13px}.coinstage{height:210px;display:grid;place-items:center}.coinface{width:145px;height:145px;border-radius:50%;background:radial-gradient(circle at 35% 28%,#fff5a5,#ffbd17 45%,#c96b00 80%);border:8px ridge #ffdc60;box-shadow:0 0 35px #ffb91b55,inset 0 0 0 4px #ffeb8b;display:grid;place-items:center;color:#733700;font-size:55px;font-weight:bold}.coinface.flip{animation:flip .65s ease-in-out}@keyframes flip{0%{transform:rotateY(0) scale(1)}50%{transform:rotateY(900deg) scale(.7)}100%{transform:rotateY(1800deg) scale(1)}}.diceface{font-size:115px;text-align:center;padding:18px;filter:drop-shadow(0 5px 14px #5b2bb877)}.historyrow{padding:12px 2px;border-bottom:1px solid #1b3158;display:flex;justify-content:space-between;gap:12px;font-size:13px}.historyrow:last-child{border:0}.bottom{position:fixed;bottom:0;left:0;right:0;background:#071128ed;border-top:1px solid #17315b;backdrop-filter:blur(12px);display:flex;justify-content:center;z-index:10}.bottominner{max-width:540px;width:100%;display:flex;justify-content:space-around;padding:10px 8px calc(10px + env(safe-area-inset-bottom))}.nav{background:transparent;color:#94a9d3;font-size:11px;display:grid;gap:4px;justify-items:center;padding:2px 14px}.nav span{font-size:21px}.nav.active{color:#2ba6ff}.empty{color:#92a6d0;text-align:center;padding:20px;font-size:13px}.note{font-size:11px;color:#91a6d1;line-height:1.8;margin-top:10px}
+@media(min-width:500px){.app{padding-top:25px}.hero h2{font-size:27px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo">👑</div><div><h1>برنامه شانس</h1><p>یه انتخاب هیجان‌انگیز، همین‌جا!</p></div></div><button class="iconbtn" id="settingsBtn" aria-label="تنظیمات">⚙</button></header>
+<section id="home" class="screen active">
+<div class="hero"><div class="eyebrow">✨ شانست رو امتحان کن</div><h2>امروز قراره چی برنده بشی؟</h2><p>گردونه رو بچرخون، سکه بنداز، تاس بریز یا یک قرعه‌کشی هیجان‌انگیز بساز.</p></div>
+<div class="sectiontitle"><h3>بازی‌ها و ابزارها</h3><span>۴ حالت سرگرم‌کننده</span></div>
+<div class="grid">
+<button class="tile wheel" data-open="wheel"><span class="emoji">🎡</span><span><b>گردونه شانس</b><br><small>گزینه‌های دلخواه خودت</small></span></button>
+<button class="tile coin" data-open="coin"><span class="emoji">🪙</span><span><b>پرتاب سکه</b><br><small>شیر یا خط؟</small></span></button>
+<button class="tile dice" data-open="dice"><span class="emoji">🎲</span><span><b>پرتاب تاس</b><br><small>عدد ۱ تا ۶</small></span></button>
+<button class="tile raffle" data-open="raffle"><span class="emoji">🎟️</span><span><b>قرعه‌کشی</b><br><small>انتخاب تصادفی برنده</small></span></button>
+</div>
+<div class="sectiontitle"><h3>آخرین نتیجه</h3><span id="historyCount">۰ نتیجه</span></div>
+<div class="panel" id="latest"><div class="empty">هنوز نتیجه‌ای ثبت نشده؛ یکی از بازی‌ها رو شروع کن!</div></div>
+</section>
+
+<section id="wheel" class="screen">
+<button class="back" data-home>← بازگشت به خانه</button><h2>🎡 گردونه شانس</h2><p class="sub">گزینه‌ها رو تغییر بده و دکمه چرخش رو بزن.</p>
+<div class="wheelbox"><div class="pointer"></div><canvas id="wheelCanvas" class="wheelcanvas" width="600" height="600" aria-label="گردونه شانس"></canvas></div>
+<button class="primary" id="spinBtn">✨ بچرخون!</button>
+<div class="sectiontitle"><h3>گزینه‌های گردونه</h3><span id="optionCount"></span></div>
+<div class="row"><input class="input" id="optionInput" maxlength="32" placeholder="مثلاً: جایزه ویژه"><button class="secondary" id="addOption">افزودن</button></div>
+<div class="list" id="optionList"></div><p class="note">گزینه‌ها روی همین دستگاه ذخیره می‌شوند.</p>
+<div class="result" id="wheelResult" hidden><div>نتیجه گردونه</div><div class="big" id="wheelWinner">🎉</div></div>
+</section>
+
+<section id="coin" class="screen">
+<button class="back" data-home>← بازگشت به خانه</button><h2>🪙 پرتاب سکه</h2><p class="sub">یک پرتاب تصادفی برای انتخاب بین دو حالت.</p>
+<div class="coinstage"><div class="coinface" id="coinFace">👑</div></div><button class="primary" id="flipBtn">🪙 پرتاب سکه</button>
+<div class="result" id="coinResult"><div>نتیجه آخر</div><div class="big" id="coinWinner">—</div><p>شیر یا خط؟</p></div>
+</section>
+
+<section id="dice" class="screen">
+<button class="back" data-home>← بازگشت به خانه</button><h2>🎲 پرتاب تاس</h2><p class="sub">تاس رو بنداز و عدد تصادفی بگیر.</p>
+<div class="diceface" id="diceFace">⚄</div><button class="primary" id="rollBtn">🎲 تاس بنداز</button>
+<div class="result"><div>عدد به‌دست‌آمده</div><div class="big" id="diceWinner">—</div></div>
+</section>
+
+<section id="raffle" class="screen">
+<button class="back" data-home>← بازگشت به خانه</button><h2>🎟️ قرعه‌کشی</h2><p class="sub">اسم شرکت‌کننده‌ها رو وارد کن و برنده رو تصادفی انتخاب کن.</p>
+<div class="row"><input class="input" id="nameInput" maxlength="45" placeholder="نام شرکت‌کننده"><button class="secondary" id="addName">افزودن</button></div>
+<div class="sectiontitle"><h3>شرکت‌کننده‌ها</h3><span id="nameCount">۰ نفر</span></div><div class="list" id="nameList"></div>
+<button class="primary" id="drawBtn" style="margin-top:14px">🎉 انتخاب برنده</button>
+<div class="result" id="raffleResult" hidden><div>برنده قرعه‌کشی</div><div class="big" id="raffleWinner">🏆</div></div>
+</section>
+
+<section id="history" class="screen"><button class="back" data-home>← بازگشت به خانه</button><h2>🕘 تاریخچه نتایج</h2><p class="sub">نتیجه‌های قبلی روی دستگاه نگه‌داری می‌شوند.</p><div class="panel" id="historyList"></div><button class="secondary" id="clearHistory" style="width:100%;margin-top:12px">پاک کردن تاریخچه</button></section>
+<section id="settings" class="screen"><button class="back" data-home>← بازگشت به خانه</button><h2>⚙️ تنظیمات</h2><div class="panel"><b>برنامه شانس</b><p class="sub">نسخه آزمایشی ۱.۰ · طراحی فارسی و راست‌چین</p><p class="sub">گزینه‌های گردونه، شرکت‌کننده‌ها و تاریخچه در حافظه همین مرورگر ذخیره می‌شوند.</p><button class="secondary" id="resetAll">بازنشانی اطلاعات برنامه</button></div><p class="note">این نسخه برای سرگرمی و انتخاب‌های تصادفی است؛ نتیجه‌ها تضمین یا پیش‌بینی واقعی نیستند.</p></section>
+</div>
+<nav class="bottom"><div class="bottominner"><button class="nav active" data-nav="home"><span>⌂</span>خانه</button><button class="nav" data-nav="history"><span>◷</span>تاریخچه</button><button class="nav" data-nav="settings"><span>⚙</span>تنظیمات</button></div></nav>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const defaults=['جایزه ویژه','امتیاز ۱۰','یک بار دیگر','انتخاب با تو','شیرینی','امتیاز ۲۰'];
+function read(key,fallback){try{const v=JSON.parse(localStorage.getItem('luck_'+key));return v===null?fallback:v}catch(e){return fallback}}
+function save(key,val){try{localStorage.setItem('luck_'+key,JSON.stringify(val))}catch(e){}}
+let options=read('options',defaults), names=read('names',[]), history=read('history',[]);
+const colors=['#ffbd17','#ff5d69','#00b98b','#8d35f5','#1685ff','#f47d28','#e841b5','#31b7c8'];
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.nav===id));window.scrollTo({top:0,behavior:'smooth'});if(id==='wheel')drawWheel();if(id==='history')renderHistory()}
+document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.open)));
+document.querySelectorAll('[data-home]').forEach(b=>b.addEventListener('click',()=>show('home')));
+document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.nav)));
+$('settingsBtn').onclick=()=>show('settings');
+function fa(n){return String(n).replace(/\d/g,d=>'۰۱۲۳۴۵۶۷۸۹'[d])}
+function addHistory(type,result){history.unshift({type,result,at:new Date().toLocaleString('fa-IR',{dateStyle:'short',timeStyle:'short'})});history=history.slice(0,60);save('history',history);renderLatest();$('historyCount').textContent=fa(history.length)+' نتیجه'}
+function renderLatest(){const el=$('latest');if(!history.length){el.innerHTML='<div class="empty">هنوز نتیجه‌ای ثبت نشده؛ یکی از بازی‌ها رو شروع کن!</div>';return}el.innerHTML='<div class="historyrow"><span>'+esc(history[0].type)+'</span><b>'+esc(history[0].result)+'</b></div><p class="note">'+esc(history[0].at)+'</p>'}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderOptions(){ $('optionCount').textContent=fa(options.length)+' گزینه';$('optionList').innerHTML=options.map((x,i)=>'<div class="item"><span>'+esc(x)+'</span><button class="del" data-del-option="'+i+'">حذف</button></div>').join('')||'<div class="empty">حداقل دو گزینه اضافه کن.</div>';drawWheel()}
+function drawWheel(){const c=$('wheelCanvas');if(!c)return;const ctx=c.getContext('2d'),w=c.width,cx=w/2,cy=w/2,r=w/2-12;ctx.clearRect(0,0,w,w);if(!options.length){ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle='#13254c';ctx.fill();ctx.fillStyle='white';ctx.font='26px Tahoma';ctx.textAlign='center';ctx.fillText('گزینه اضافه کن',cx,cy);return}const step=2*Math.PI/options.length;options.forEach((label,i)=>{const a=-Math.PI/2+i*step;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,a,a+step);ctx.closePath();ctx.fillStyle=colors[i%colors.length];ctx.fill();ctx.strokeStyle='#ffe9a0';ctx.lineWidth=3;ctx.stroke();ctx.save();ctx.translate(cx,cy);ctx.rotate(a+step/2);ctx.textAlign='right';ctx.fillStyle='#fff';ctx.font='bold '+(options.length>8?'19':'23')+'px Tahoma';let t=label;if(t.length>14)t=t.slice(0,13)+'…';ctx.shadowColor='#000';ctx.shadowBlur=4;ctx.fillText(t,r-24,8);ctx.restore()});ctx.beginPath();ctx.arc(cx,cy,42,0,Math.PI*2);ctx.fillStyle='#ffca32';ctx.fill();ctx.strokeStyle='#fff0a6';ctx.lineWidth=7;ctx.stroke();ctx.fillStyle='#7b3d00';ctx.font='bold 28px Tahoma';ctx.textAlign='center';ctx.fillText('★',cx,cy+10)}
+$('addOption').onclick=()=>{const v=$('optionInput').value.trim();if(!v)return;if(options.length>=16){alert('حداکثر ۱۶ گزینه می‌توانی داشته باشی.');return}options.push(v);save('options',options);$('optionInput').value='';renderOptions()};
+$('optionInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('addOption').click()});
+$('optionList').addEventListener('click',e=>{const b=e.target.closest('[data-del-option]');if(!b)return;options.splice(+b.dataset.delOption,1);save('options',options);renderOptions()});
+let spinning=false;$('spinBtn').onclick=()=>{if(spinning)return;if(options.length<2){alert('برای چرخاندن، حداقل دو گزینه اضافه کن.');return}spinning=true;const btn=$('spinBtn'),canvas=$('wheelCanvas');btn.disabled=true;btn.textContent='در حال چرخش…';let start=null;const duration=2600+Math.random()*900;const initial=0;const extra=Math.PI*2*(5+Math.random()*4);function frame(t){if(!start)start=t;let p=Math.min(1,(t-start)/duration),ease=1-Math.pow(1-p,4);canvas.style.transform='rotate('+(extra*ease)+'rad)';if(p<1){requestAnimationFrame(frame)}else{const idx=Math.floor(Math.random()*options.length);const win=options[idx];$('wheelWinner').textContent=win;$('wheelResult').hidden=false;addHistory('گردونه شانس',win);spinning=false;btn.disabled=false;btn.textContent='✨ بچرخون!'}}requestAnimationFrame(frame)};
+$('flipBtn').onclick=()=>{const f=$('coinFace');f.classList.remove('flip');void f.offsetWidth;f.classList.add('flip');$('flipBtn').disabled=true;setTimeout(()=>{const result=Math.random()<.5?'شیر':'خط';f.textContent=result==='شیر'?'👑':'★';$('coinWinner').textContent=result;addHistory('پرتاب سکه',result);$('flipBtn').disabled=false},650)};
+const diceChars=['⚀','⚁','⚂','⚃','⚄','⚅'];$('rollBtn').onclick=()=>{const btn=$('rollBtn');btn.disabled=true;let n=0;const timer=setInterval(()=>{$('diceFace').textContent=diceChars[Math.floor(Math.random()*6)];if(++n>9){clearInterval(timer);const v=1+Math.floor(Math.random()*6);$('diceFace').textContent=diceChars[v-1];$('diceWinner').textContent=fa(v);addHistory('پرتاب تاس',fa(v));btn.disabled=false}},75)};
+function renderNames(){$('nameCount').textContent=fa(names.length)+' نفر';$('nameList').innerHTML=names.map((n,i)=>'<div class="item"><span>'+fa(i+1)+'. '+esc(n)+'</span><button class="del" data-del-name="'+i+'">حذف</button></div>').join('')||'<div class="empty">هنوز کسی اضافه نشده.</div>'}
+$('addName').onclick=()=>{const n=$('nameInput').value.trim();if(!n)return;if(names.length>=100){alert('حداکثر ۱۰۰ شرکت‌کننده.');return}names.push(n);save('names',names);$('nameInput').value='';renderNames()};$('nameInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('addName').click()});
+$('nameList').addEventListener('click',e=>{const b=e.target.closest('[data-del-name]');if(!b)return;names.splice(+b.dataset.delName,1);save('names',names);renderNames()});
+$('drawBtn').onclick=()=>{if(!names.length){alert('اول نام شرکت‌کننده‌ها رو اضافه کن.');return}const winner=names[Math.floor(Math.random()*names.length)];$('raffleWinner').textContent='🏆 '+winner;$('raffleResult').hidden=false;addHistory('قرعه‌کشی',winner)};
+function renderHistory(){$('historyList').innerHTML=history.map(h=>'<div class="historyrow"><span><b>'+esc(h.type)+'</b><br><small style="color:#8ea4d0">'+esc(h.at)+'</small></span><b>'+esc(h.result)+'</b></div>').join('')||'<div class="empty">تاریخچه خالی است.</div>'}
+$('clearHistory').onclick=()=>{if(confirm('تاریخچه پاک شود؟')){history=[];save('history',history);renderHistory();renderLatest();$('historyCount').textContent='۰ نتیجه'}};
+$('resetAll').onclick=()=>{if(confirm('همه گزینه‌ها، شرکت‌کننده‌ها و تاریخچه پاک و به حالت اولیه برگردند؟')){options=defaults.slice();names=[];history=[];save('options',options);save('names',names);save('history',history);renderOptions();renderNames();renderHistory();renderLatest();alert('اطلاعات بازنشانی شد.')}};
+renderOptions();renderNames();renderLatest();$('historyCount').textContent=fa(history.length)+' نتیجه';
+})();
+</script>
+</body></html>
